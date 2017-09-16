@@ -11,4 +11,6 @@
 - вставка ссылок в текст
 - Просмотр html кода
 
+Смотреть тут - <a href="https://timtroll.github.io/javascript-WYSIWYG/">https://timtroll.github.io/javascript-WYSIWYG/</a>
+
 Пользуйтесь )) В благодарность можете прислать мне пива.
