@@ -1,0 +1,134 @@
+/* Block Modal */
+.modal-editor {
+	background: #000;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1000;
+	opacity: .5;
+}
+
+/*------*/
+#editor-link .close {
+	float: right;
+	font-size: 18px;
+	background: transparent;
+	color: #0000ff;
+	padding: 2px 5px;
+}
+#editor-link .close:hover {
+	cursor: pointer;
+	color: #ff0000;
+}
+#editor-link h2 {
+	margin:: 10px;
+	text-align: center;
+	color: #555;
+}
+
+/*------*/
+#editor-image .close {
+	float: right;
+	font-size: 18px;
+	background: transparent;
+	color: #0000ff;
+	padding: 2px 5px;
+}
+#editor-image .close:hover {
+	cursor: pointer;
+	color: #ff0000;
+}
+#editor-image h2 {
+	margin:: 10px;
+	text-align: center;
+	color: #555;
+}
+//#editor-image label {
+//	margin: 5px;
+//	width:100%;
+//	text-align: center;
+//	color: #555;
+//}
+#editor-image .image-prop {
+	margin: 5px;
+	color: #555;
+    padding: 4px;
+    width: 30%;
+}
+#editor-image .image-cell {
+    width: 25px;
+}
+#editor-image .image-width {
+    width: 44px;
+}
+#editor-image .image-height {
+    width: 44px;
+}
+#editor-image .image-class {
+    width: 15%;
+}
+#editor-image .image-text {
+    width: 92%;
+}
+.new-select-style select {
+	border: 1px solid #CCC;
+	background: transparent;
+	padding: 5px;
+	border: 0;
+	font-weight: bold;
+	line-height: 1;
+	-webkit-appearance: none;
+	width: 34%;
+}
+.radios-as-buttons {
+    margin-bottom: 25px;
+}
+.radios-as-buttons .radio-btn {
+    float: left;
+}
+.radios-as-buttons .radio-input {
+    position: absolute;
+    left: -9999px;
+}
+.radios-as-buttons .radio-label {
+    display: block;
+    margin: 0 0 0 -1px;
+    padding: 5px 10px;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+}
+.radios-as-buttons .radio-input:checked + .radio-label {
+    background: white;
+    box-shadow: inset 0 3px 6px #cccccc;
+}
+
+
+
+/*------*/
+.visible {
+	background: #fff;
+display: inline-block;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	overflow: hidden;
+	z-index: 2000;
+	min-width: 300px;
+width:auto;
+	padding: 0px;
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.modal-content {
+	font-size: 14px;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+}
+.ajax-content {
+	min-height: 80px;
+	margin: 0 20px 0 20px;
+}
+/* ---------- */

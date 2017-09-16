@@ -1,0 +1,194 @@
+/* ------ Spinner ------ */
+.spinner {
+	width: 70px;
+	height: 70px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	overflow: hidden;
+	z-index: 3000;
+	padding: 0px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.modal-spinner {
+	background: #000;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1000;
+	opacity: .5;
+}
+
+/* ------ Editor ------ */
+#editor {
+  box-shadow: 0 0 2px #aaaaaa;
+  min-height: 150px;
+  overflow: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: 13px;
+  resize: vertical;
+  outline: none;
+  z-index: 0;
+  position: relative 
+}
+
+#editorhtml {
+  box-shadow: 0 0 2px #aaaaaa;
+  min-height: 150px;
+  width: 100%;
+  overflow: auto;
+  padding: 1em;
+  margin-top: 1em;
+  resize: vertical;
+  outline: none;
+}
+
+
+/* ---------- */
+.fore-wrapper:hover,
+.back-wrapper:hover {
+  background: #f2f2f2;
+  border-color: #8c8c8c;
+}
+.fore-wrapper:hover + .back-wrapper {z-index:-1}
+.fore-wrapper, {
+  border-radius: 3px 0 0 3px;
+}
+
+a.palette-item {
+  height: 1em;
+  border-radius: 3px;
+  margin: 2px;
+  width: 2em;
+  border: 1px solid #CCC;
+
+  display: inline-block;
+  display: -moz-inline-stack;
+  *display: inline;
+  list-style: none;
+
+  min-height: 20px;
+}
+
+a.palette-item:hover {
+  border: 1px solid #CCC;
+  box-shadow: 0 0 3px #333;
+}
+
+.fore-palette,
+.back-palette {
+  display: none;
+  position: relative;
+  z-index: -1
+}
+
+.fore-wrapper,
+.back-wrapper {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  z-index: 1
+}
+
+.fore-wrapper:hover .fore-palette,
+.back-wrapper:hover .back-palette {
+  display: block;
+  /*float: left;*/
+  position: absolute;
+  padding: 3px;
+  width: 170px;
+  background: #FFF;
+  border: 1px solid #DDD;
+  box-shadow: 0 0 5px #CCC;
+  height: auto;
+  text-decoration: none;
+  z-index: 2
+}
+
+.fore-palette a,
+.back-palette a {
+  background: #FFF;
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 1
+}
+
+
+/* ---------- */
+.tool-bar {
+  text-align: center;
+  padding: 10px;
+}
+.but-block {
+  display: inline-block;
+  //	display: -moz-inline-stack;
+  display: -webkit-inline-box;
+  *display: inline;
+  padding-bottom: 10px;
+}
+.but-block > li, .but-block > a {
+  display: inline-block;
+  display: -moz-inline-stack;
+  *display: inline;
+  list-style: none;
+
+  text-align: center;
+  vertical-align: middle;
+
+  border: 1px solid #CCC;
+  box-shadow: 0px 1px 0px #cccccc;
+
+  font-size: 10px;
+  font-weight: bold;
+  color: #333333;
+  text-decoration: none;
+
+  min-height: 15px;
+  min-width: 12px;
+
+  padding: 4px;
+  margin-right: -5px;
+}
+.but-block > a:hover {
+  background: #f2f2f2;
+  border-color: #8c8c8c;
+  cursor: pointer;
+}
+.frst {
+  border-radius: 3px 0 0 3px;
+  margin-left: 10px;
+}
+.lst {
+  border-radius: 0 3px 3px 0;
+  margin-right: 10px;
+}
+.but {
+  background: repeating-linear-gradient(
+    0deg,
+    #000,
+    #000 1px,
+    #fff 2px,
+    #fff 4px
+  );
+  margin-left: 2px;
+}
+.blck {
+  line-height: 7px;
+}
+.blck-left {
+  -webkit-clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+}
+.blck-right {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 25% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 25% 100%);
+}
+.blck-center {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 100%, 30% 100%, 0% 25%);
+  clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 100%, 30% 100%, 0% 25%);
+}
+
