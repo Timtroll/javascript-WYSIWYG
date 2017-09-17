@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-	if (document.querySelector('#editor')) {
-		// Add Escape enent for close popup
-		document.onkeydown = function(evt) {
-			evt = evt || window.event;
-			if (evt.keyCode == 27) {
-				ClosePopup();
-			};
-		}
+	var wysEditors = document.querySelectorAll('.wysiwyg-editor');
+	var editor = document.querySelector('#editor');
+	var editorhtml = document.querySelector('#editorhtml');
+	var editorLink = document.querySelector('#editor-link');
+	var editorImage = document.querySelector('#editor-image');
 
-		var seconds = new Date().getTime() / 1000;
+	var seconds = new Date().getTime() / 1000;
+
+	if (wysEditors && editor) {
+		// load templates for insert link 
+		Ajax('./templates/menu.html?' + seconds, createMenu, true, 'GET', '', null);
 
 		// load templates for insert link 
 		Ajax('./js/images.js?' + seconds, createImageList, true, 'GET', '', null);
@@ -19,119 +20,104 @@ document.addEventListener('DOMContentLoaded', function () {
 		// load templates for insert image 
 		Ajax('./templates/image.html', createImageHtml, true, 'GET', '', null);
 
-		// init Editor
-		var savedRange, isInFocus, imageList;
-
-		var editor = document.querySelector('#editor');
-		var editorhtml = document.querySelector('#editorhtml');
-		var editorLink = document.querySelector('#editor-link');
-		var editorImage = document.querySelector('#editor-image');
-
-		var toolbar = document.querySelectorAll('.command');
-
-		var colorPalette = ['000000', 'FF9966', '6699FF', '99FF66', 'CC0000', '00CC00', '0000CC', '333333', '0066FF', 'FFFFFF'];
-		var forePalette = document.querySelector('.fore-palette');
-		var backPalette = document.querySelector('.back-palette');
 
 		initClosePopup();
 
-		// initInsertImage();
-		// initInsertLink();
+		// init Editor
+		var savedRange, isInFocus, imageList;
 
-		for (var i = 0; i < colorPalette.length; i++) {
-			var dat = '<a href="#" data-command="forecolor" data-value="' + '#' + colorPalette[i] + '" style="background-color:' + '#' + colorPalette[i] + ';" class="command palette-item"></a>';
-			forePalette.insertAdjacentHTML('beforeend', dat);
+		function createMenu(mnu) {
+			Array.from(wysEditors).forEach(wys => {
+				wys.insertAdjacentHTML('afterBegin', mnu);
 
-			dat = '<a href="#" data-command="backcolor" data-value="' + '#' + colorPalette[i] + '" style="background-color:' + '#' + colorPalette[i] + ';" class="command palette-item"></a>';
-			backPalette.insertAdjacentHTML('beforeend', dat);
-		}
+				var colorPalette = ['000000', 'FF9966', '6699FF', '99FF66', 'CC0000', '00CC00', '0000CC', '333333', '0066FF', 'FFFFFF'];
+				var forePalette = document.querySelector('.fore-palette');
+				var backPalette = document.querySelector('.back-palette');
 
-		// Editor command selector
-		Array.from(toolbar).forEach(link => {
-			link.addEventListener("click", function () {
-				var command = this.getAttribute('data-command');
+				for (var i = 0; i < colorPalette.length; i++) {
+					var dat = '<a href="#" data-command="forecolor" data-value="' + '#' + colorPalette[i] + '" style="background-color:' + '#' + colorPalette[i] + ';" class="command palette-item"></a>';
+					forePalette.insertAdjacentHTML('beforeend', dat);
 
-				if (command == 'h1' || command == 'h2' ||  command == 'h3' ||  command == 'h4' || command == 'p') {
-					document.execCommand('formatBlock', false, command);
-					editorhtml.value = editor.innerHTML;
+					dat = '<a href="#" data-command="backcolor" data-value="' + '#' + colorPalette[i] + '" style="background-color:' + '#' + colorPalette[i] + ';" class="command palette-item"></a>';
+					backPalette.insertAdjacentHTML('beforeend', dat);
 				}
-				else if (command == 'empty') {
-					document.execCommand('formatBlock', false, 'p');
-					editorhtml.value = editor.innerHTML;
-				}
-				else if (command == 'forecolor' || command == 'backcolor') {
-					document.execCommand(this.getAttribute('data-command'), false, this.getAttribute('data-value'));
-					editorhtml.value = editor.innerHTML;
-				}
-				else if (command == 'insertorderedlist') {
-					document.execCommand("insertorderedlist", false, command);
-					editorhtml.value = editor.innerHTML;
-				}
-				else if (command == 'insertunorderedlist') {
-					document.execCommand('insertunorderedlist');
-					editorhtml.value = editor.innerHTML;
-				}
-				else if (command == 'insertimage') {
-					saveSelection();
-					// imageForm();
-					document.querySelector("#editor-image").style.display = '';
 
-					// show spinner and resize modal
-					resize();
-				}
-				else if (command == 'createlink') {
-					document.querySelector("#editor-link").style.display = '';
+				var toolbar = document.querySelectorAll('.command');
 
-					// show spinner and resize modal
-					resize();
-				}
-				else if (command == 'html') {
-					if (editorhtml.style.display != '') {
+				// Editor command selector
+				Array.from(toolbar).forEach(link => {
+					link.addEventListener("click", function () {
+						var command = this.getAttribute('data-command');
+
+						if (command == 'h1' || command == 'h2' ||  command == 'h3' ||  command == 'h4' || command == 'p') {
+							document.execCommand('formatBlock', false, command);
+						}
+						else if (command == 'empty') {
+							document.execCommand('formatBlock', false, 'p');
+						}
+						else if (command == 'forecolor' || command == 'backcolor') {
+							document.execCommand(this.getAttribute('data-command'), false, this.getAttribute('data-value'));
+						}
+						else if (command == 'insertorderedlist') {
+							document.execCommand("insertorderedlist", false, command);
+						}
+						else if (command == 'insertunorderedlist') {
+							document.execCommand('insertunorderedlist');
+						}
+						else if (command == 'insertimage') {
+							editorImage.style.display = '';
+							saveSelection();
+
+							// show spinner and resize modal
+							resize();
+						}
+						else if (command == 'createlink') {
+							editorLink.style.display = '';
+							saveSelection();
+
+							// show spinner and resize modal
+							resize();
+						}
+						else if (command == 'html') {
+							if (editorhtml.style.display != '') {
+								editorhtml.value = editor.innerHTML;
+								editor.style.display = 'none';
+								editorhtml.style.display = '';
+							}
+							else {
+								editor.innerHTML = editorhtml.value;
+								editor.style.display = '';
+								editorhtml.style.display = 'none';
+							}
+						}
+						else {
+							document.execCommand(command, false, null);
+							editorhtml.value = editor.innerHTML;
+						}
 						editorhtml.value = editor.innerHTML;
-						editor.style.display = 'none';
-						editorhtml.style.display = '';
-					}
-					else {
-						editor.innerHTML = editorhtml.value;
-						editor.style.display = '';
-						editorhtml.style.display = 'none';
-					}
-				}
-				else {
-					document.execCommand(command, false, null);
-					editorhtml.value = editor.innerHTML;
-				}
-				return false;
+						return false;
+					});
+				});
 			});
-		});
-
-
-
-		// show popup for InsertImage and InsertLink
-		if (document.querySelector('#editor-link') || document.querySelector('#editor-image')) {
-			// show spinner and resize modal
-			resize();
 		}
+
+
 
 		// fill textarea if focus are flur
 		editor.addEventListener("blur", function () {
 			editorhtml.value = editor.innerHTML;
 		});
 
+		// show popup for InsertImage and InsertLink
+		if (editorLink || editorImage) {
+			// show spinner and resize modal
+			resize();
+		}
+
 		// insert/Cancel image command
 		if (document.querySelector('.editor-image-cancel')) {
 			// cancel image command
 			document.querySelector('.editor-image-cancel').addEventListener("click", function () {
-				ClosePopup();
-				editorhtml.value = editor.innerHTML;
-				return false;
-			});
-		}
-
-		// insert link command
-		if (document.querySelector('.editor-link-cancel')) {
-			// cancel link command
-			document.querySelector('.editor-link-cancel').addEventListener("click", function () {
 				ClosePopup();
 				editorhtml.value = editor.innerHTML;
 				return false;
@@ -150,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function restoreSelection() {
 			isInFocus = true;
-			document.querySelector('#editor').focus();
+			editor.focus();
 			if (savedRange != null) {
 				// non IE and there is already a selection
 				if (window.getSelection) {
@@ -172,11 +158,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		function ClosePopup() {
-			if (document.querySelector("#editor-link")) {
-				document.querySelector("#editor-link").style.display = 'none';
+			if (editorLink) {
+				editorLink.style.display = 'none';
 			}
-			if (document.querySelector("#editor-image")) {
-				document.querySelector("#editor-image").style.display = 'none';
+			if (editorImage) {
+				editorImage.style.display = 'none';
 			}
 		}
 
@@ -312,12 +298,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				// sync editable and hidden textarea
 				editorhtml.value = editor.innerHTML;
+				ClosePopup();
 			}
 		}
 
 		// Load add Link form
 		function createLinkHtml(inp) {
-console.log('insert');
 			// load input link form
 			document.querySelector('.ajax-content-link').innerHTML = '';
 			document.querySelector('.ajax-content-link').insertAdjacentHTML('beforeend', inp);
@@ -339,7 +325,17 @@ console.log('insert');
 		}
 
 		function InsertLink() {
+			// get url from input
+			var url = document.querySelector('.editor-link').value || '';
 
+			if (url) {
+				restoreSelection();
+				document.execCommand('createlink', false, url);
+
+				// sync editable and hidden textarea
+				editorhtml.value = editor.innerHTML;
+				ClosePopup();
+			}
 		}
 
 		// resize modal
@@ -413,6 +409,14 @@ console.log('insert');
 				xmlhttp.send(params);
 			}
 			return xmlhttp;
+		}
+
+		// Add Escape enent for close popup
+		document.onkeydown = function(evt) {
+			evt = evt || window.event;
+			if (evt.keyCode == 27) {
+				ClosePopup();
+			};
 		}
 	}
 });

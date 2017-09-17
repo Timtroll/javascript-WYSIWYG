@@ -3,9 +3,9 @@
 <head>
 	<title>WYSYWIG</title>
 	<meta charset="utf-8">
-	<link href="css/editor.css" rel="stylesheet" media="all">
-	<link href="css/modal.css" rel="stylesheet" media="all">
-	<script src="js/editor.js"></script>
+	<link rel="icon" href="./favicon.ico" type="image/x-icon">
+	<link href="./css/editor.css" rel="stylesheet" media="all">
+	<link href="./css/modal.css" rel="stylesheet" media="all">
 	<style type="text/css">
 	* {
 		margin: 0;
@@ -19,60 +19,11 @@
 	}
 
 	</style>
+	<script src="./js/editor.js"></script>
 </head>
 <body>
-	<div id="head"  style="top:20px;width:160px;background-color:azure;border:1px solid blue">sdfsdfsdf</div>
-<div class="parent">
-	<div class="tool-bar">
-		<div class="but-block">
-			<li class="command frst fore-wrapper">|<i>A</i>
-				<div class="fore-palette"></div>
-			</li>
-			<li class="command lst back-wrapper">Bg
-				<div class="back-palette"></div>
-			</li>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="bold" class="command frst">b</a>
-			<a href="" onclick="return false;" data-command="italic" class="command">i</a>
-			<a href="" onclick="return false;" data-command="underline" class="command">u</a>
-			<a href="" onclick="return false;" data-command="strikeThrough" class="command"><s>s</s></a>
-			<a href="" onclick="return false;" data-command="subscript" class="command"><span class="blck">x<sub>2</sub></span></a>
-			<a href="" onclick="return false;" data-command="superscript" class="command lst"><span class="blck">x<sup>2</sup></span></a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="insertunorderedlist" class="command frst"><span class="but">&nbsp;</span><span class="but">&nbsp;&nbsp;&nbsp;</span></a>
-			<a href="" onclick="return false;" data-command="insertorderedlist" class="command lst"><span class="but blck">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="justifyLeft" class="command frst"><span class="but blck-left">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-			<a href="" onclick="return false;" data-command="justifyRight" class="command"><span class="but blck-right">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-			<a href="" onclick="return false;" data-command="justifyCenter" class="command"><span class="but blck-center">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-			<a href="" onclick="return false;" data-command="justifyFull" class="command lst"><span class="but blck">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="redo" class="command frst">&#8635;</a>
-			<a href="" onclick="return false;" data-command="undo" class="command lst">&#8634;</a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="h1" class="command frst">h1</a>
-			<a href="" onclick="return false;" data-command="h2" class="command">h2</a>
-			<a href="" onclick="return false;" data-command="h3" class="command">h3</a>
-			<a href="" onclick="return false;" data-command="h4" class="command">h4</a>
-			<a href="" onclick="return false;" data-command="p" class="command">P</a>
-			<a href="" onclick="return false;" data-command="empty" class="command lst">&#10008;</a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="indent" class="command frst">&rArr;</a>
-			<a href="" onclick="return false;" data-command="outdent" class="command ls">&lArr;</a>
-		</div>
-		<div class="but-block">
-			<a href="" onclick="return false;" data-command="createlink" class="command frst">&#8734;</a>
-			<a href="" onclick="return false;" data-command="unlink" class="command"><s>&#8734;</s></a>
-			<a href="" onclick="return false;" data-command="insertimage" class="command">&#10047;</a>
-			<a href="" onclick="return false;" data-command="html" class="command lst">&lt;html&gt;</a>
-		</div>
-	</div>
+
+<div class="parent wysiwyg-editor">
 	<div id="editor" contenteditable="true">
 		<h1>A WYSIWYG Editor.</h1>
 		<p>Try making some changes here. Add your own text or maybe an image.</p>
