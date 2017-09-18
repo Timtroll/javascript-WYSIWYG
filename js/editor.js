@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		// load templates for insert image 
 		Ajax('./templates/image.html', createImageHtml, true, 'GET', '', null);
 
-
 		initClosePopup();
 
 		// init Editor
@@ -109,10 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		// show popup for InsertImage and InsertLink
-		if (editorLink || editorImage) {
-			// show spinner and resize modal
-			resize();
-		}
+		// if (editorLink || editorImage) {
+		// 	// show spinner and resize modal
+		// 	resize();
+		// }
 
 		// insert/Cancel image command
 		if (document.querySelector('.editor-image-cancel')) {
@@ -177,6 +176,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		}
 
+		function initUploadFile() {
+			if (document.querySelector(".close-popup")) {
+				var close = document.querySelectorAll('.close-popup');
+				Array.from(close).forEach(closer => {
+					closer.addEventListener("click", function () {
+						Ajax('./upload', createMenu, true, 'GET', '', null);
+
+						// ReCreate images thumb-list
+						var img = '';
+						for (key in imageList) {
+							img = img + '<div class="uploaded-image" style="background-image: url(\'' + imageList[key] + '\'"></div>';
+						}
+						document.querySelector('.uploaded-list').innerHTML = img;
+					});
+				});
+			}
+		}
+
 		// Load json image list
 		function createImageList(inp) {
 			inp = inp.replace(/\r|\n/g, '');
@@ -190,14 +207,23 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.querySelector('.ajax-content-image').innerHTML = '';
 			document.querySelector('.ajax-content-image').insertAdjacentHTML('beforeend', inp);
 
-			// create list of images
-			var select = document.querySelector('#imagelist');
+			// create images thumb-list
+			var img = '';
 			for (key in imageList) {
-				var option = document.createElement( 'option' );
-				option.value = imageList[key];
-				option.text = key;
-				select.add( option );
+				img = img + '<div class="uploaded-image" style="background-image: url(\'' + imageList[key] + '\'"></div>';
 			}
+			document.querySelector('.uploaded-list').innerHTML = img;
+
+			// add image for insert into text
+			var uploaded = document.querySelectorAll('.uploaded-image');
+			Array.from(uploaded).forEach(upl => {
+				upl.addEventListener("click", function () {
+					document.querySelector('.image-url').value = this.style.backgroundImage.slice(5, -2);
+					document.querySelector('.example').src = this.style.backgroundImage.slice(5, -2);
+					document.querySelector('#edit-form').style.display='';
+					document.querySelector('#upload-form').style.display='none';
+				});
+			});
 
 			// set image align events
 			var inputs = document.querySelectorAll('.radio-input');
@@ -230,14 +256,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			// get url from input
 			var url = document.querySelector('.image-url').value || '';
 			if (url) { prop.push('src="' + url + '"'); }
-			// get url from select
-			else {
-				var e = document.querySelector('#imagelist');
-				url = e.options[e.selectedIndex].value;
-				if (url) {
-					prop.push('src="' + url + '"');
-				}
-			}
 
 			var width = document.querySelector('.image-width').value || '';
 			if (document.querySelector('.image-widthper').checked && width) { width += '%'; }
@@ -344,8 +362,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			var classes = ['.visible', '.spinner']
 
 			var visible = document.querySelectorAll('.visible');
+var wdth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var hght = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 			Array.from(visible).forEach(vis => {
-					vis.style.left = (window.innerWidth - vis.clientWidth)/2 + 'px';
+					vis.style.left = (wdth - vis.clientWidth)/2 + 'px';
+					vis.style.bottom = (hght - vis.clientHeight)/2 + 'px';
 			});
 		}
 
@@ -381,7 +402,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				url += '?' + params;
 			}
 
-			xmlhttp.open(method, url, async);
+			if (method == 'POSTFILE') {
+				xmlhttp.open('POST', url, async);
+			}
+			else {
+				xmlhttp.open(method, url, async);
+			}
 
 			if (header != null) {
 				xmlhttp.setRequestHeader('Content-Type', header);
@@ -390,10 +416,30 @@ document.addEventListener('DOMContentLoaded', function () {
 				header = 'application/x-www-form-urlencoded';
 				xmlhttp.setRequestHeader('Content-Type', header);
 			}
+			else if (method == 'POSTFILE') {
+				// Create form data
+				var formData = new FormData();
+				params = document.querySelectorAll('#newFile');
+				formData.append('file', params);
+
+				// Set headers
+				xmlhttp.setRequestHeader("Cache-Control", "no-cache");
+				xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+				xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
+				xmlhttp.setRequestHeader("X-File-Name", params.fileName);
+				xmlhttp.setRequestHeader("X-File-Size", params.fileSize);
+				xmlhttp.setRequestHeader("X-File-Type", params.type);
+
+				// Send
+				xmlhttp.send(formData);
+			}
 
 			if (!async) {
 				if (params == '') {
 					xmlhttp.send(null);
+				}
+				else if (method == 'POSTFILE') {
+					xmlhttp.send(body);
 				}
 				else {
 					xmlhttp.send(params);

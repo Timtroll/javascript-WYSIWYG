@@ -1,6 +1,16 @@
 {
-	"файл1.jpg":"https://utrack.xdev.re/_persistent/bf_youtrack.png?file=75-3&c=true",
-	"файл2.jpg":"https://utrack.xdev.re/_persistent/bf_youtrack.png?file=75-3&c=true",
-	"файл3.jpg":"https://utrack.xdev.re/_persistent/bf_youtrack.png?file=75-3&c=true",
-	"файл4.jpg":"https://utrack.xdev.re/_persistent/bf_youtrack.png?file=75-3&c=true"
+	"файл1.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/m_1_May_inyaz.gif",
+	"файл2.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/m_Lenin_1870-1924.gif",
+	"файл3.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Zapisalsya_dobrovolcem.jpg",
+	"файл4.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Polsky_front_1.jpg",
+	"файл5.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Na_zashity_Petrograda.jpg",
+	"файл6.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Red_Moscow.jpg",
+	"файл7.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Proriv.jpg",
+	"файл9.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/m_1_May_inyaz.gif",
+	"файл10.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/m_Lenin_1870-1924.gif",
+	"файл11.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Zapisalsya_dobrovolcem.jpg",
+	"файл12.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Polsky_front_1.jpg",
+	"файл13.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Na_zashity_Petrograda.jpg",
+	"файл14.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Red_Moscow.jpg",
+	"файл15.jpg":"http://www.komsomol-nn.narod.ru/izo/izo_plakat_sovetskii/Proriv.jpg"
 }

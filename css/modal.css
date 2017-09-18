@@ -54,69 +54,156 @@
 #editor-image .image-prop {
 	margin: 5px;
 	color: #555;
-    padding: 4px;
-    width: 30%;
+	padding: 4px;
+	width: 30%;
 }
 #editor-image .image-cell {
-    width: 25px;
+	width: 25px;
 }
 #editor-image .image-width {
-    width: 44px;
+	width: 44px;
 }
 #editor-image .image-height {
-    width: 44px;
+	width: 44px;
 }
 #editor-image .image-class {
-    width: 15%;
+	width: 15%;
 }
 #editor-image .image-text {
-    width: 92%;
+	width: 92%;
 }
 .new-select-style select {
 	border: 1px solid #CCC;
 	background: transparent;
-	padding: 5px;
+	padding: 11px;
 	border: 0;
 	font-weight: bold;
 	line-height: 1;
 	-webkit-appearance: none;
 	width: 34%;
+	min-height: 33px;
 }
 .radios-as-buttons {
-    margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 .radios-as-buttons .radio-btn {
-    float: left;
+	float: left;
 }
 .radios-as-buttons .radio-input {
-    position: absolute;
-    left: -9999px;
+	position: absolute;
+	left: -9999px;
 }
 .radios-as-buttons .radio-label {
-    display: block;
-    margin: 0 0 0 -1px;
-    padding: 5px 10px;
-    border: 1px solid #cccccc;
-    cursor: pointer;
+	display: block;
+	margin: 0 0 0 -1px;
+	padding: 5px 10px;
+	border: 1px solid #cccccc;
+	cursor: pointer;
 }
 .radios-as-buttons .radio-input:checked + .radio-label {
-    background: white;
-    box-shadow: inset 0 3px 6px #cccccc;
+	background: white;
+	box-shadow: inset 0 3px 6px #cccccc;
 }
 
 
+/* File Upload button */
+.file_upload{
+	display: block;
+	position: relative;
+	overflow: hidden;
+	font-size: 1em;			  /* example */
+	height: 2em;				 /* example */
+	line-height: 2em			 /* the same as height */
+}
+.file_upload .button, .file_upload > mark{
+	display: block;
+	cursor: pointer			  /* example */
+}
+.file_upload .button{
+	float: right;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 8em;				  /* example */
+	height: 100%;
+	text-align: center		   /* example */
+}
+.file_upload > mark{
+	background: transparent;	 /* example */
+	padding-left: 1em			/* example */
+}
+@media only screen and ( max-width: 500px ){  /* example */
+	.file_upload > mark{
+		display: none
+	}
+	.file_upload .button{
+		width: 100%
+	}
+}
+.file_upload input[type=file]{
+	position: absolute;
+	top: 0;
+	opacity: 0
+}
+
+/* Making it beautiful */
+
+.file_upload{
+	border: 1px solid #ccc;
+	border-radius: 3px;
+//	box-shadow: 0 0 5px #cccccc;;
+	transition: box-shadow 0.1s linear
+}
+.file_upload.focus{
+	box-shadow: 0 0 5px #cccccc;
+}
+.file_upload .button{
+	transition: background 0.2s;
+	border: 1px solid #cccccc;
+	border-color: #cccccc #cccccc #cccccc;
+	border-radius: 2px;
+//	box-shadow: 0 1px 0 #cccccc inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+	color: #333333;
+//	text-shadow: #cccccc 0 -1px 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis
+}
+.file_upload:hover .button{
+//	text-shadow: #cccccc 0 -1px 0
+}
+.file_upload:active .button{
+//	box-shadow: 0 0 3px #cccccc inset
+}
+/*------*/
 
 /*------*/
+.uploaded-list {
+	padding-top: 40px;
+	overflow: auto;
+    height: 300px;
+    width: 100%;
+}
+.uploaded-image {
+	float: left;
+	width: 18%;
+	margin: 5px;
+	height: 100px;
+	background-size: 75%;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
 .visible {
 	background: #fff;
-display: inline-block;
-	position: relative;
-	left: 50%;
-	top: 50%;
+	display: inline-block;
+	position: fixed;
+//	position: relative;
+//	left: 50%;
+//	top: 50%;
 	overflow: hidden;
 	z-index: 2000;
 	min-width: 300px;
-width:auto;
+	width:auto;
 	padding: 0px;
 	border: 1px solid #ccc;
 	-moz-border-radius: 5px;
