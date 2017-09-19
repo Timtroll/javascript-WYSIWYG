@@ -45,12 +45,6 @@
 	text-align: center;
 	color: #555;
 }
-//#editor-image label {
-//	margin: 5px;
-//	width:100%;
-//	text-align: center;
-//	color: #555;
-//}
 #editor-image .image-prop {
 	margin: 5px;
 	color: #555;
@@ -107,39 +101,50 @@
 
 
 /* File Upload button */
+.image-upload {
+	float: right;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 110px;
+	height: 100%;
+	padding: 6px;
+	text-align: center	/* example */;
+	border: 1px solid #ccc;
+	padding-left: 1em;
+}
 .file_upload{
 	display: block;
 	position: relative;
 	overflow: hidden;
-	font-size: 1em;			  /* example */
-	height: 2em;				 /* example */
-	line-height: 2em			 /* the same as height */
+	font-size: 1em;				/* example */
+	height: 2em;				/* example */
+	line-height: 2em			/* the same as height */
 }
-.file_upload .button, .file_upload > mark{
+.file_upload .button, .file_upload > mark {
 	display: block;
-	cursor: pointer			  /* example */
+	cursor: pointer				/* example */
 }
-.file_upload .button{
+.file_upload .button {
 	float: right;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	width: 8em;				  /* example */
+	width: 110px;				/* example */
 	height: 100%;
-	text-align: center		   /* example */
+	text-align: center			/* example */
 }
-.file_upload > mark{
-	background: transparent;	 /* example */
+.file_upload > mark {
+	background: transparent;	/* example */
 	padding-left: 1em			/* example */
 }
-@media only screen and ( max-width: 500px ){  /* example */
-	.file_upload > mark{
+@media only screen and ( max-width: 500px ) {	/* example */
+	.file_upload > mark {
 		display: none
 	}
-	.file_upload .button{
+	.file_upload .button {
 		width: 100%
 	}
 }
-.file_upload input[type=file]{
+.file_upload input[type=file] {
 	position: absolute;
 	top: 0;
 	opacity: 0
@@ -150,7 +155,6 @@
 .file_upload{
 	border: 1px solid #ccc;
 	border-radius: 3px;
-//	box-shadow: 0 0 5px #cccccc;;
 	transition: box-shadow 0.1s linear
 }
 .file_upload.focus{
@@ -161,27 +165,19 @@
 	border: 1px solid #cccccc;
 	border-color: #cccccc #cccccc #cccccc;
 	border-radius: 2px;
-//	box-shadow: 0 1px 0 #cccccc inset, 0 1px 2px rgba(0, 0, 0, 0.05);
 	color: #333333;
-//	text-shadow: #cccccc 0 -1px 0;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis
-}
-.file_upload:hover .button{
-//	text-shadow: #cccccc 0 -1px 0
-}
-.file_upload:active .button{
-//	box-shadow: 0 0 3px #cccccc inset
 }
 /*------*/
 
 /*------*/
 .uploaded-list {
-	padding-top: 40px;
+	padding-top: 30px;
 	overflow: auto;
-    height: 300px;
-    width: 100%;
+	height: 350px;
+	width: 100%;
 }
 .uploaded-image {
 	float: left;
@@ -197,9 +193,6 @@
 	background: #fff;
 	display: inline-block;
 	position: fixed;
-//	position: relative;
-//	left: 50%;
-//	top: 50%;
 	overflow: hidden;
 	z-index: 2000;
 	min-width: 300px;

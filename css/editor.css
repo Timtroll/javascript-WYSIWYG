@@ -35,7 +35,10 @@
   z-index: 0;
   position: relative 
 }
-
+#editor > p {
+//	margin-top: 0.5em; /* Отступ сверху */
+	margin-bottom: 1em; /* Отступ снизу */
+}
 #editorhtml {
   box-shadow: 0 0 2px #aaaaaa;
   min-height: 150px;

@@ -3,11 +3,11 @@
 <div class="modal-content" style="width:600px">
 		<div>
 			<label>
-				<div style="float:left; padding: 0 10px 0 10px; cursor: point;" onclick="document.querySelector('#edit-form').style.display='';document.querySelector('#upload-form').style.display='none';">Url</div>
+				<div style="float:left; padding: 0 10px 0 10px; cursor: point;" onclick="document.querySelector('#edit-form').style.display='';document.querySelector('#upload-form').style.display='none';">Настройки</div>
 				<div style="float:left; padding: 0 10px 0 10px; cursor: point;" onclick="document.querySelector('#edit-form').style.display='none';document.querySelector('#upload-form').style.display='';">Загруженные фото</div>
 			</label>
 		</div>
-	<div id="edit-form">
+	<div id="edit-form" style="display: none;">
 		<div style="float:right; width:305px;">
 			<div class="radios-as-buttons">
 				<div class="radio-btn">
@@ -80,13 +80,13 @@
 			<button data-com="insert" class="image-insert">Вставить</button><button data-com="cancel" class="image-cancel">Отменить</button>
 		</div>
 	</div>
-	<div id="upload-form" style="display: none;">
+	<div id="upload-form">
 		<div style="float:right; width:305px">
+			<span class="image-upload" style="display: none">Загрузить</span>
 			<label class="file_upload">
 				<span class="button image-choose">Выбрать</span>
-				<button class="button image-upload">Загрузить</button>
-				<mark>Файл не выбран</mark>
-				<input type="file" name="newFile" id="newFile">
+				<mark class="image-mark">Файл не выбран</mark>
+				<input type="file" name="newFile" class="newFile">
 			</label>
 		</div>
 		<div class="uploaded-list"></div>

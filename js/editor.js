@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+	var uploadUrl = '/upload';
+	var pathPrefix = './';
 	var wysEditors = document.querySelectorAll('.wysiwyg-editor');
 	var editor = document.querySelector('#editor');
 	var editorhtml = document.querySelector('#editorhtml');
@@ -9,16 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	if (wysEditors && editor) {
 		// load templates for insert link 
-		Ajax('./templates/menu.html?' + seconds, createMenu, true, 'GET', '', null);
+		Ajax(pathPrefix + 'templates/menu.html?' + seconds, createMenu, true, 'GET', '', null);
 
 		// load templates for insert link 
-		Ajax('./js/images.js?' + seconds, createImageList, true, 'GET', '', null);
+		Ajax(pathPrefix + 'js/images.js?' + seconds, parseImageList, true, 'GET', '', null);
 
 		// load templates for insert link 
-		Ajax('./templates/link.html', createLinkHtml, true, 'GET', '', null);
+		Ajax(pathPrefix + 'templates/link.html', createLinkHtml, true, 'GET', '', null);
 
 		// load templates for insert image 
-		Ajax('./templates/image.html', createImageHtml, true, 'GET', '', null);
+		Ajax(pathPrefix + 'templates/image.html', createImageHtml, true, 'GET', '', null);
 
 		initClosePopup();
 
@@ -107,12 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			editorhtml.value = editor.innerHTML;
 		});
 
-		// show popup for InsertImage and InsertLink
-		// if (editorLink || editorImage) {
-		// 	// show spinner and resize modal
-		// 	resize();
-		// }
-
 		// insert/Cancel image command
 		if (document.querySelector('.editor-image-cancel')) {
 			// cancel image command
@@ -176,26 +172,17 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		}
 
-		function initUploadFile() {
-			if (document.querySelector(".close-popup")) {
-				var close = document.querySelectorAll('.close-popup');
-				Array.from(close).forEach(closer => {
-					closer.addEventListener("click", function () {
-						Ajax('./upload', createMenu, true, 'GET', '', null);
-
-						// ReCreate images thumb-list
-						var img = '';
-						for (key in imageList) {
-							img = img + '<div class="uploaded-image" style="background-image: url(\'' + imageList[key] + '\'"></div>';
-						}
-						document.querySelector('.uploaded-list').innerHTML = img;
-					});
-				});
+		// create images thumb-list
+		function createImageList() {
+			var img = '';
+			for (key in imageList) {
+				img = img + '<div class="uploaded-image" style="background-image: url(\'' + imageList[key] + '\'"></div>';
 			}
+			document.querySelector('.uploaded-list').innerHTML = img;
 		}
 
 		// Load json image list
-		function createImageList(inp) {
+		function parseImageList(inp) {
 			inp = inp.replace(/\r|\n/g, '');
 			imageList = JSON.parse(inp, null, 4);
 		}
@@ -208,11 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.querySelector('.ajax-content-image').insertAdjacentHTML('beforeend', inp);
 
 			// create images thumb-list
-			var img = '';
-			for (key in imageList) {
-				img = img + '<div class="uploaded-image" style="background-image: url(\'' + imageList[key] + '\'"></div>';
-			}
-			document.querySelector('.uploaded-list').innerHTML = img;
+			createImageList();
 
 			// add image for insert into text
 			var uploaded = document.querySelectorAll('.uploaded-image');
@@ -245,6 +228,37 @@ document.addEventListener('DOMContentLoaded', function () {
 				document.querySelector('.image-cancel').addEventListener("click", function () {
 					ClosePopup();
 				});
+			}
+
+			// choose and upload buttons
+			document.querySelector('.image-upload').addEventListener("click", function () {
+				if (document.querySelector('.newFile').files[0]) {
+					// Upload files and ReCreate images thumb-list
+					Ajax(uploadUrl, recreateImageListUploaded, false, 'POSTFILE', '', null);
+				}
+			});
+
+			// choose and upload buttons
+			document.querySelector('.newFile').addEventListener("change", function () {
+				document.querySelector('.image-choose').style.display = 'none';
+				document.querySelector('.file_upload').style.width = 193;
+				document.querySelector('.image-upload').style.display = '';
+				if (document.querySelector('.newFile').files[0]) {
+					document.querySelector('.image-mark').innerHTML = document.querySelector('.newFile').files[0].name;
+				}
+				else {
+					document.querySelector('.image-mark').innerHTML = 'Выберите файл';
+				}
+			});
+
+			function recreateImageListUploaded(inp) {
+				// load templates for insert link 
+				Ajax(pathPrefix + 'js/images.js?' + seconds, reloadImageList, true, 'GET', '', null);
+			}
+
+			function reloadImageList() {
+				parseImageList(inp);
+				createImageList();
 			}
 		}
 
@@ -362,8 +376,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			var classes = ['.visible', '.spinner']
 
 			var visible = document.querySelectorAll('.visible');
-var wdth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-var hght = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+			var wdth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			var hght = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 			Array.from(visible).forEach(vis => {
 					vis.style.left = (wdth - vis.clientWidth)/2 + 'px';
 					vis.style.bottom = (hght - vis.clientHeight)/2 + 'px';
@@ -419,7 +433,8 @@ var hght = window.innerHeight || document.documentElement.clientHeight || docume
 			else if (method == 'POSTFILE') {
 				// Create form data
 				var formData = new FormData();
-				params = document.querySelectorAll('#newFile');
+				params = document.querySelector('.newFile').files[0];
+console.log(params);
 				formData.append('file', params);
 
 				// Set headers
@@ -432,14 +447,12 @@ var hght = window.innerHeight || document.documentElement.clientHeight || docume
 
 				// Send
 				xmlhttp.send(formData);
+				return xmlhttp;
 			}
 
 			if (!async) {
 				if (params == '') {
 					xmlhttp.send(null);
-				}
-				else if (method == 'POSTFILE') {
-					xmlhttp.send(body);
 				}
 				else {
 					xmlhttp.send(params);
